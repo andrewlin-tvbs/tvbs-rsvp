@@ -246,7 +246,7 @@
     </div>
 
     <div class="meta-section">
-      <p style="color: var(--gold); font-size: 18px; font-weight: 700; margin-bottom: 8px; letter-spacing: 2px;">2026.04.15</p>
+      <p style="color: var(--white); font-size: 24px; font-weight: 700; margin-bottom: 8px; letter-spacing: 2px;">2026.04.15</p>
       <p>13:00 報到入場</p>
       <p>13:30 活動開始</p>
       <p style="margin-bottom: 16px;">15:00 活動結束</p>
@@ -257,7 +257,7 @@
       當我們不再能真正辨別真假<br>
       100% 真實體驗就成為最高價商品<br>
       消費者為了真人表演、比賽<br>
-      <span class="text-150">瘋狂、排推、搶票</span>
+      <span class="text-150">瘋狂、排隊、搶票</span>
       在每個現場跟著大家一起<br>
       <span class="text-150">唱歌、尖叫、大笑</span>
       那些讓觀眾真正流淚、真心微笑的故事<br>
@@ -300,48 +300,4 @@
 
   <div class="success-screen" id="success-screen">
     <h2>報名成功！</h2>
-    <p>感謝您的參與，活動詳情已發送至您的信箱。</p>
-  </div>
-
-  <script>
-    const form = document.getElementById('rsvp-form');
-    const formContainer = document.getElementById('form-container');
-    const successScreen = document.getElementById('success-screen');
-    const mainContent = document.getElementById('main-content');
-    const btn = document.getElementById('submit-btn');
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault(); 
-      btn.disabled = true;
-      btn.innerText = '處理中...';
-
-      const payload = {
-        company: document.getElementById('company').value.trim(),
-        name: document.getElementById('name').value.trim(),
-        phone: document.getElementById('phone').value.trim(),
-        email: document.getElementById('email').value.trim()
-      };
-
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbyL-il1IoxAw94_9kZ0F_SrQu59mGouGAgw3od-Cana-SBeTzfQxV2ZajtHUVtNmA7K/exec';
-
-      fetch(scriptURL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload)
-      })
-      .then(response => {
-        mainContent.style.display = 'none';
-        formContainer.style.display = 'none';
-        successScreen.style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      })
-      .catch(error => {
-        alert('網路錯誤或伺服器無回應，請稍後再試。');
-        btn.disabled = false;
-        btn.innerText = '確認報名';
-      });
-    });
-  </script>
-
-</body>
-</html>
+    <p>感謝您的參與，活動詳情已發送至您的信
