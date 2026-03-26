@@ -37,7 +37,7 @@
     padding: 40px 24px 60px;
   }
 
-  /* 1. 主視覺 (放大至 90%) */
+  /* 1. 主視覺 */
   .hero-section {
     width: 90%;
     margin: 0 auto 40px;
@@ -111,13 +111,6 @@
     color: var(--white);
     line-height: 2.2;
     letter-spacing: 1px;
-  }
-
-  .text-120 {
-    font-size: 1.2em;
-    font-weight: 700;
-    display: block;
-    margin: 4px 0;
   }
 
   .text-150 {
@@ -210,10 +203,14 @@
     cursor: not-allowed;
   }
 
-  /* 成功畫面專屬樣式 */
+  /* 成功畫面：加入滿版垂直置中設定 */
   .success-screen {
     display: none;
-    padding: 60px 24px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* 確保佔滿整個螢幕高度 */
+    padding: 40px 24px;
     text-align: center;
   }
   .success-screen h2 {
@@ -245,6 +242,7 @@
     background-color: transparent;
     border: 1px solid var(--gold);
     color: var(--gold);
+    width: 100%;
   }
   .back-btn:hover {
     background-color: var(--gold);
@@ -287,14 +285,14 @@
       <span class="text-150">唱歌、尖叫、大笑</span>
       那些讓觀眾真正流淚、真心微笑的故事<br>
       還有讓我們看清未來的真相跟趨勢<br>
-      這樣的未來，TVBS 準備好了<br>
+      這樣的未來，TVBS 準備好了，<br>
       4/15 邀請您一起來真實感受。
     </div>
 
     <div class="highlight-section">
       <div class="highlight-block">
         <div class="highlight-title">真正巨星上場</div>
-        <div class="highlight-content">茱蒂蒙·瓊查容蘇因、陳昊森、曹佑寧、林美秀</div>
+        <div class="highlight-content">茱蒂蒙、陳昊森、曹佑寧、林美秀</div>
       </div>
       <div class="highlight-block">
         <div class="highlight-title">真的不能錯過</div>
@@ -312,6 +310,9 @@
       </div>
       <div class="form-group">
         <input type="text" id="name" placeholder="姓名" required>
+      </div>
+      <div class="form-group">
+        <input type="text" id="title" placeholder="職稱" required>
       </div>
       <div class="form-group">
         <input type="tel" id="phone" placeholder="手機號碼" required>
@@ -345,15 +346,16 @@
     const btn = document.getElementById('submit-btn');
     const backBtn = document.getElementById('back-home-btn');
 
-    // 表單送出邏輯
     form.addEventListener('submit', function(e) {
       e.preventDefault(); 
       btn.disabled = true;
       btn.innerText = '處理中...';
 
+      // 加入了 title (職稱) 欄位
       const payload = {
         company: document.getElementById('company').value.trim(),
         name: document.getElementById('name').value.trim(),
+        title: document.getElementById('title').value.trim(),
         phone: document.getElementById('phone').value.trim(),
         email: document.getElementById('email').value.trim()
       };
@@ -366,10 +368,13 @@
         body: JSON.stringify(payload)
       })
       .then(response => {
+        // 隱藏表單，顯示成功畫面並套用 flex 垂直置中
         mainContent.style.display = 'none';
         formContainer.style.display = 'none';
-        successScreen.style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        successScreen.style.display = 'flex'; 
+        
+        // 瞬間回到頂部，避免手機瀏覽器滾動條卡住
+        window.scrollTo(0, 0); 
       })
       .catch(error => {
         alert('網路錯誤或伺服器無回應，請稍後再試。');
@@ -378,19 +383,16 @@
       });
     });
 
-    // 回到首頁按鈕邏輯
     backBtn.addEventListener('click', function() {
       successScreen.style.display = 'none';
       mainContent.style.display = 'block';
       formContainer.style.display = 'block';
       
-      // 重置表單與按鈕狀態
       form.reset();
       btn.disabled = false;
       btn.innerText = '確認報名';
       
-      // 畫面滾動回最上方
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo(0, 0);
     });
   </script>
 
