@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>TVBS 2026 品牌發表會</title>
+
+<meta property="og:title" content="TVBS 2026 品牌發表會">
+<meta property="og:description" content="當我們不再能真正辨別真假，100% 真實體驗就成為最高價商品。4/15 邀請您一起來真實感受。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://andrewlin-tvbs.github.io/tvbs-rsvp/">
+<meta property="og:image" content="https://andrewlin-tvbs.github.io/tvbs-rsvp/og-image.jpg">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
 
@@ -203,13 +209,13 @@
     cursor: not-allowed;
   }
 
-  /* 成功畫面：加入滿版垂直置中設定 */
+  /* 成功畫面：滿版垂直置中 */
   .success-screen {
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* 確保佔滿整個螢幕高度 */
+    min-height: 100vh;
     padding: 40px 24px;
     text-align: center;
   }
@@ -351,7 +357,6 @@
       btn.disabled = true;
       btn.innerText = '處理中...';
 
-      // 加入了 title (職稱) 欄位
       const payload = {
         company: document.getElementById('company').value.trim(),
         name: document.getElementById('name').value.trim(),
@@ -368,12 +373,9 @@
         body: JSON.stringify(payload)
       })
       .then(response => {
-        // 隱藏表單，顯示成功畫面並套用 flex 垂直置中
         mainContent.style.display = 'none';
         formContainer.style.display = 'none';
         successScreen.style.display = 'flex'; 
-        
-        // 瞬間回到頂部，避免手機瀏覽器滾動條卡住
         window.scrollTo(0, 0); 
       })
       .catch(error => {
