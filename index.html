@@ -61,7 +61,7 @@
     margin-bottom: 6px;
   }
   .theme-subtitle {
-    font-size: 22px; /* 已更新為 22px */
+    font-size: 22px;
     font-weight: 900;
     color: var(--white);
     letter-spacing: 4px;
@@ -199,7 +199,7 @@
     letter-spacing: 6px;
     cursor: pointer;
     margin-top: 20px;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
   }
   .submit-btn:hover {
     opacity: 0.8;
@@ -210,7 +210,7 @@
     cursor: not-allowed;
   }
 
-  /* 成功畫面 */
+  /* 成功畫面專屬樣式 */
   .success-screen {
     display: none;
     padding: 60px 24px;
@@ -222,9 +222,33 @@
     letter-spacing: 4px;
     margin-bottom: 16px;
   }
-  .success-screen p {
+  .success-screen > p {
+    color: var(--white);
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 30px;
+  }
+  .success-img {
+    width: 70%;
+    margin: 0 auto 24px;
+    display: block;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+  }
+  .recap-meta {
+    margin-bottom: 40px;
+    font-size: 15px;
     color: var(--dim);
     line-height: 1.8;
+    letter-spacing: 1px;
+  }
+  .back-btn {
+    background-color: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+  }
+  .back-btn:hover {
+    background-color: var(--gold);
+    color: var(--black);
   }
 </style>
 </head>
@@ -270,7 +294,7 @@
     <div class="highlight-section">
       <div class="highlight-block">
         <div class="highlight-title">真正巨星上場</div>
-        <div class="highlight-content">茱蒂蒙、陳昊森、曹佑寧、林美秀</div>
+        <div class="highlight-content">茱蒂蒙·瓊查容蘇因、陳昊森、曹佑寧、林美秀</div>
       </div>
       <div class="highlight-block">
         <div class="highlight-title">真的不能錯過</div>
@@ -301,7 +325,16 @@
 
   <div class="success-screen" id="success-screen">
     <h2>報名成功！</h2>
-    <p>感謝您的參與，活動詳情已發送至您的信箱。</p>
+    <p>感謝您的參與，期待您當天的蒞臨！</p>
+    
+    <img src="kv.jpg" alt="TVBS 2026 主視覺" class="success-img">
+    
+    <div class="recap-meta">
+      <p style="color: var(--gold); font-size: 20px; font-weight: 700; margin-bottom: 8px; letter-spacing: 2px;">2026.04.15</p>
+      <p>松菸誠品表演廳 | 台北市信義區菸廠路88號B1</p>
+    </div>
+
+    <button class="submit-btn back-btn" id="back-home-btn">回到首頁</button>
   </div>
 
   <script>
@@ -310,7 +343,9 @@
     const successScreen = document.getElementById('success-screen');
     const mainContent = document.getElementById('main-content');
     const btn = document.getElementById('submit-btn');
+    const backBtn = document.getElementById('back-home-btn');
 
+    // 表單送出邏輯
     form.addEventListener('submit', function(e) {
       e.preventDefault(); 
       btn.disabled = true;
@@ -341,6 +376,21 @@
         btn.disabled = false;
         btn.innerText = '確認報名';
       });
+    });
+
+    // 回到首頁按鈕邏輯
+    backBtn.addEventListener('click', function() {
+      successScreen.style.display = 'none';
+      mainContent.style.display = 'block';
+      formContainer.style.display = 'block';
+      
+      // 重置表單與按鈕狀態
+      form.reset();
+      btn.disabled = false;
+      btn.innerText = '確認報名';
+      
+      // 畫面滾動回最上方
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
 
