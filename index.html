@@ -26,16 +26,15 @@
     --gold: #C8A96E;
     --bg-surface: #0a0a0a;
     
-    --video-max-width: 720px;   /* 影片解放最高寬度限制 (最高達 720px) */
-    --content-max-width: 480px; /* 文字內容最高寬度 */
+    /* 影片最高寬度設定為 720px，確保桌機有氣勢但不失控 */
+    --video-max-width: 720px;   
+    --content-max-width: 480px; 
   }
 
   body {
     font-family: 'Helvetica Neue', Arial, 'Noto Sans TC', sans-serif;
     background: var(--black);
     color: var(--white);
-    
-    /* 解放 body，讓它能配合新的影片寬度 */
     max-width: var(--video-max-width); 
     margin: 0 auto;
     min-height: 100vh;
@@ -44,7 +43,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* 用來包覆「除影片外」所有內容的容器，鎖定在 480px */
+  /* 用來包覆「除影片外」所有內容的容器，鎖定在舒適的 480px */
   .content-block {
     max-width: var(--content-max-width);
     margin: 0 auto;
@@ -56,34 +55,30 @@
     width: 100%;
   }
 
-  /* 1. 主視覺 - 已套用全方位羽化淡出 */
+  /* 1. 主視覺 - 設定為 100% 滿版，不突破手機邊界 */
   .hero-section {
     width: 100%; 
     max-width: var(--video-max-width); 
-    margin: 0 auto 50px; /* 置中 */
+    margin: 0 auto 50px; /* 完美置中 */
   }
   
-  /* 核心修改：利用疊加遮罩 (Linear + Radial) 達成左、右、底全方位淡出 */
+  /* 疊加遮罩達成全方位淡出 */
   .hero-section video, .hero-section img {
     width: 100%;
     height: auto;
     display: block;
     
-    /* 核心修改：疊加兩層遮罩 */
-    /* 1. Linear Gradient：負責頂部實色 (80%)，底部羽化淡出 (transparent 100%) */
-    /* 2. Radial Gradient：負責中心實色，左、右兩側羽化淡出 */
+    /* 恢復自然的遮罩範圍，確保左右與底部都有漂亮的漸層融合 */
     -webkit-mask-image: 
       linear-gradient(to bottom, black 80%, transparent 100%),
-      radial-gradient(ellipse at center, black 50%, transparent 100%);
+      radial-gradient(ellipse at center, black 40%, transparent 100%);
     mask-image: 
       linear-gradient(to bottom, black 80%, transparent 100%),
-      radial-gradient(ellipse at center, black 50%, transparent 100%);
+      radial-gradient(ellipse at center, black 40%, transparent 100%);
       
-    /* 核心修改：設定遮罩的合成模式，讓兩者取「交集 (source-in)」，確保只有兩者都是黑色實色的部分才顯示 */
     -webkit-mask-composite: source-in;
     mask-composite: intersect; 
     
-    /* MODIFICATION: 放大後陰影微調，質感更好 */
     box-shadow: 0 10px 30px rgba(0,0,0,0.6); 
   }
 
@@ -391,7 +386,7 @@
   <div class="success-screen" id="success-screen">
     <div class="content-block">
       <h2>完成報名！</h2>
-      <p>感謝您的參與，活動詳情已發送至您的信箱。</p>
+      <p>本次活動採邀請制，填寫報名表不代表確認出席資格。主辦單位將於活動前2天另行以電子郵件通知完成報名的貴賓，請留意信箱來信。</p>
       
       <img src="kv.jpg" alt="TVBS 2026 主視覺" class="success-img">
       
