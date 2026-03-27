@@ -26,9 +26,8 @@
     --gold: #C8A96E;
     --bg-surface: #0a0a0a;
     
-    /* 核心修改：定義新的寬度邏輯 */
-    --video-max-width: 720px;   /* 原本 360px 的兩倍大 */
-    --content-max-width: 480px; /* 原本文字的最高寬度 */
+    --video-max-width: 720px;   /* 影片解放最高寬度限制 (最高達 720px) */
+    --content-max-width: 480px; /* 文字內容最高寬度 */
   }
 
   body {
@@ -57,21 +56,24 @@
     width: 100%;
   }
 
-  /* 1. 主視覺 - 已真正放大兩倍 (最高達 720px) */
+  /* 1. 主視覺 - 已套用全方位羽化淡出 */
   .hero-section {
-    width: 100%; /* 手機上滿版 */
-    max-width: var(--video-max-width); /* 核心修改：解放最高寬度限制至原本的兩倍 */
+    width: 100%; 
+    max-width: var(--video-max-width); 
     margin: 0 auto 50px; /* 置中 */
   }
   
-  /* 套用 CSS Mask 遮罩，保持底部漸層淡出效果 */
+  /* 核心修改：利用橢圓形徑向遮罩 (Radial Gradient Mask) 達成全方位邊緣淡出 */
   .hero-section video, .hero-section img {
     width: 100%;
     height: auto;
     display: block;
     
-    -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    /* 核心修改：從中心 solid black 開始，到橢圓邊緣漸漸變為透明 */
+    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
+    
+    /* MODIFICATION: 同時移除原本底部淡出的 linear gradient 遮罩 (被徑向遮罩取代) */
     
     /* 放大後陰影微調，質感更好 */
     box-shadow: 0 10px 30px rgba(0,0,0,0.6); 
